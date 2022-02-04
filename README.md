@@ -13,6 +13,10 @@ Os comandos abaixo podem mudar para a versão 2 do Kafka.
 Assuntos:
 
 * Setup inicial
+* Brokers
+* Network
+
+![Network](/diagrams/network.png)
 
 Servers:
 
@@ -38,9 +42,14 @@ docker-compose up -d
 
 Assuntos:
 
-* criação de tópicos
-* réplicas + leaders + in sync
-* rebalance
+* Criação de tópicos
+* Réplicas + Leaders + InSync
+* Rebalance
+
+![Consumers vs Partitions](/diagrams/consumers-vs-partitions.png)
+
+
+
 
 Comandos:
 
