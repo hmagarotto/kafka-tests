@@ -39,7 +39,7 @@ docker-compose up -d
 Assuntos:
 
 * criação de tópicos
-* réplicas /leaders /in sync
+* réplicas + leaders + in sync
 * rebalance
 
 Comandos:
