@@ -1,4 +1,4 @@
-# Encontros:
+# Kafka Tests
 
 Testes realizados com o Kafka na versão utilizada em produção 1.1.0.
 
@@ -6,7 +6,9 @@ Esta versão é antiga e estamos planejando a migração para a versão 2 do Kaf
 
 Os comandos abaixo podem mudar para a versão 2 do Kafka.
 
-## 1°
+## Encontros:
+
+### 1° encontro (2021-12-10)
 
 Assuntos:
 
@@ -32,7 +34,7 @@ docker-compose up -d zookeeper
 docker-compose up -d
 ```
 
-## 2°
+### 2° encontro (2022-02-04)
 
 Assuntos:
 
@@ -76,7 +78,7 @@ kafka-consumer-groups.sh \
   awk '{print $1,$6}' | sort | uniq -c
 ```
 
-## 3°
+### 3° encontro (2022-02-11)
 
 Assuntos:
 
