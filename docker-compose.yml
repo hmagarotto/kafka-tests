@@ -1,0 +1,65 @@
+version: "2"
+
+services:
+  zookeeper:
+    image: docker.io/bitnami/zookeeper:3.4.12
+    restart: "unless-stopped"
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    volumes:
+      - zookeeper_data:/bitnami/zookeeper
+  kafka-0:
+    image: docker.io/bitnami/kafka:1.1.0
+    restart: "unless-stopped"
+    ports:
+      - "19090:9093"
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    volumes:
+      - kafka_0_data:/bitnami/kafka
+      - ./server-0.properties:/opt/bitnami/kafka/conf/server.properties
+    depends_on:
+      - zookeeper
+  kafka-1:
+    image: docker.io/bitnami/kafka:1.1.0
+    restart: "unless-stopped"
+    ports:
+      - "19091:9093"
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    volumes:
+      - kafka_1_data:/bitnami/kafka
+      - ./server-1.properties:/opt/bitnami/kafka/conf/server.properties
+    depends_on:
+      - zookeeper
+  kafka-2:
+    image: docker.io/bitnami/kafka:1.1.0
+    restart: "unless-stopped"
+    ports:
+      - "19092:9093"
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    volumes:
+      - kafka_2_data:/bitnami/kafka
+      - ./server-2.properties:/opt/bitnami/kafka/conf/server.properties
+    depends_on:
+      - zookeeper
+
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_0_data:
+    driver: local
+  kafka_1_data:
+    driver: local
+  kafka_2_data:
+    driver: local
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.66.47.0/24
+          gateway: 10.66.47.1
