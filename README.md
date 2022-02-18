@@ -98,3 +98,9 @@ Assuntos:
 * heartbeat
 
 ![Partitions](/diagrams/partitions.png)
+
+### 4° encontro (2022-02-25)
+
+Assuntos:
+
+* consumer and producer tests
