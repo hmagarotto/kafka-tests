@@ -87,7 +87,7 @@ kafka-consumer-groups.sh \
   awk '{print $1,$6}' | sort | uniq -c
 ```
 
-### 3° encontro (2022-02-11)
+### 3° encontro (2022-02-18)
 
 Assuntos:
 
@@ -96,3 +96,5 @@ Assuntos:
 * fetch
 * session timeout
 * heartbeat
+
+![Partitions](/diagrams/partitions.png)
