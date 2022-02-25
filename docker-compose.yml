@@ -1,6 +1,8 @@
 version: "2"
 
 services:
+  ########################################################
+  ### KAFKA CLUSTER
   zookeeper:
     image: docker.io/bitnami/zookeeper:3.4.12
     restart: "unless-stopped"
@@ -19,7 +21,7 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     volumes:
       - kafka_0_data:/bitnami/kafka
-      - ./server-0.properties:/opt/bitnami/kafka/conf/server.properties
+      - ./kafka/config/server-0.properties:/opt/bitnami/kafka/conf/server.properties
     depends_on:
       - zookeeper
   kafka-1:
@@ -31,7 +33,7 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     volumes:
       - kafka_1_data:/bitnami/kafka
-      - ./server-1.properties:/opt/bitnami/kafka/conf/server.properties
+      - ./kafka/config/server-1.properties:/opt/bitnami/kafka/conf/server.properties
     depends_on:
       - zookeeper
   kafka-2:
@@ -43,9 +45,19 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     volumes:
       - kafka_2_data:/bitnami/kafka
-      - ./server-2.properties:/opt/bitnami/kafka/conf/server.properties
+      - ./kafka/config/server-2.properties:/opt/bitnami/kafka/conf/server.properties
     depends_on:
       - zookeeper
+  ########################################################
+  ### UIs
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    restart: "unless-stopped"
+    ports:
+      - 8080:9000
+    environment:
+      KAFKA_BROKERCONNECT: kafka-0:9092,kafka-1:9092,kafka-2:9092
+      JVM_OPTS: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"
 
 volumes:
   zookeeper_data:
