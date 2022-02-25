@@ -48,9 +48,6 @@ Assuntos:
 
 ![Consumers vs Partitions](/diagrams/consumers-vs-partitions.png)
 
-
-
-
 Comandos:
 
 ```
@@ -109,8 +106,14 @@ Assuntos:
 * consumer js (https://kafka.js.org/docs/consumer-example)
 * producer js (https://kafka.js.org/docs/producer-example)
 
+![Kafka Metrics](/diagrams/kafka-metrics.png)
+
+Comandos:
 
 ```
+source env.sh
+
+# produtor
 kafka-producer-perf-test.sh \
   --topic TESTE \
   --num-records 50000 \
@@ -121,13 +124,20 @@ kafka-producer-perf-test.sh \
     bootstrap.servers=${KAFKA_SERVERS} \
     batch.size=64
 
+# consumidor
 kafka-consumer-perf-test.sh \
   --broker-list "${KAFKA_SERVERS}" \
   --topic TESTE \
-  --group TEST_GROUP \
+  --group PERF_GROUP \
   --messages 50000 \
   --threads 1
 ```
 
-### 5° encontro ()
-* consumer: connector-whatsapp
+### 5° encontro (04/03/2022)
+
+Assuntos:
+
+* kafkajs: configurations
+* heartbeat
+* lag test
+* connector-whatsapp
