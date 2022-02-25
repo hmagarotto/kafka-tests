@@ -13,7 +13,8 @@ services:
     volumes:
       - zookeeper_data:/bitnami/zookeeper
   kafka-0:
-    image: docker.io/bitnami/kafka:1.1.0
+    # image: docker.io/bitnami/kafka:1.1.0
+    build: ./kafka
     restart: "unless-stopped"
     ports:
       - "19090:9093"
@@ -25,7 +26,8 @@ services:
     depends_on:
       - zookeeper
   kafka-1:
-    image: docker.io/bitnami/kafka:1.1.0
+    # image: docker.io/bitnami/kafka:1.1.0
+    build: ./kafka
     restart: "unless-stopped"
     ports:
       - "19091:9093"
@@ -37,7 +39,8 @@ services:
     depends_on:
       - zookeeper
   kafka-2:
-    image: docker.io/bitnami/kafka:1.1.0
+    # image: docker.io/bitnami/kafka:1.1.0
+    build: ./kafka
     restart: "unless-stopped"
     ports:
       - "19092:9093"
@@ -86,6 +89,41 @@ services:
             docker-kafka-server:
               properties:
                 bootstrap.servers: "kafka-0:9092,kafka-1:9092,kafka-2:9092"
+  ########################################################
+  ### Metrics
+  kafka-minion:
+    image: quay.io/cloudhut/kminion:master
+    restart: unless-stopped
+    environment:
+      KAFKA_BROKERS: kafka-0:9092,kafka-1:9092,kafka-2:9092
+  kafka-exporter:
+    image: danielqsj/kafka-exporter
+    restart: unless-stopped
+    command:
+    - '--kafka.server=kafka-0:9092'
+    - '--kafka.server=kafka-1:9092'
+    - '--kafka.server=kafka-2:9092'
+  prometheus:
+    image: prom/prometheus
+    restart: "unless-stopped"
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus_data:/prometheus
+      - ./prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yml
+  grafana:
+    # dashboards:
+    # jmx: https://grafana.com/grafana/dashboards/721
+    # jmx: https://grafana.com/grafana/dashboards/762
+    # kafka-minion: https://grafana.com/grafana/dashboards/14012
+    # kafka-minion: https://grafana.com/grafana/dashboards/14013
+    # kafka-minion: https://grafana.com/grafana/dashboards/14014
+    # kafka-exporter: https://grafana.com/grafana/dashboards/7589
+    image: grafana/grafana
+    ports:
+      - "9091:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
 
 volumes:
   zookeeper_data:
@@ -95,6 +133,10 @@ volumes:
   kafka_1_data:
     driver: local
   kafka_2_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
     driver: local
 networks:
   default:
