@@ -107,3 +107,7 @@ Assuntos:
 * metrics
 * perf
 * consumer and producer tests
+
+
+### 5° encontro ()
+* consumer: connector-whatsapp
