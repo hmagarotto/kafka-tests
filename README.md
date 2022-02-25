@@ -106,8 +106,28 @@ Assuntos:
 * UIs
 * metrics
 * perf
-* consumer and producer tests
+* consumer js (https://kafka.js.org/docs/consumer-example)
+* producer js (https://kafka.js.org/docs/producer-example)
 
+
+```
+kafka-producer-perf-test.sh \
+  --topic TESTE \
+  --num-records 50000 \
+  --record-size 512 \
+  --throughput 400 \
+  --producer-props \
+    acks=1 \
+    bootstrap.servers=${KAFKA_SERVERS} \
+    batch.size=64
+
+kafka-consumer-perf-test.sh \
+  --broker-list "${KAFKA_SERVERS}" \
+  --topic TESTE \
+  --group TEST_GROUP \
+  --messages 50000 \
+  --threads 1
+```
 
 ### 5° encontro ()
 * consumer: connector-whatsapp
