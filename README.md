@@ -140,4 +140,9 @@ Assuntos:
 * kafkajs: configurations
 * heartbeat
 * lag test
-* connector-whatsapp
+
+### 6° encontro (11/03/2022)
+
+Assuntos:
+
+* teste integrado com microsserviços Zenvia
