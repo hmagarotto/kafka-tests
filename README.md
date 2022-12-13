@@ -145,4 +145,4 @@ Assuntos:
 
 Assuntos:
 
-* teste integrado com microsserviços Zenvia
+* teste integrado com microsserviços
